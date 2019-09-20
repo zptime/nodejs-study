@@ -37,3 +37,11 @@
 * stream：仅在服务区端可用的模块，目的是支持“流”这种数据结构。createReadStream, createWriteStream, pipe
 * http: request对象封装了HTTP请求，response对象封装了HTTP响应。
 * crypto模块：提供通用的加密和哈希算法。Nodejs用C/C++实现这些算法后，通过cypto这个模块暴露为JavaScript接口，方便，运行速度也快。
+
+## koa
+
+> Express是第一代最流行的web框架，koa是Express的下一代基于Node.js的web框架
+
+* express：基于ES5的语法，要实现异步代码，只有一个方法：回调。如异步嵌套层数过多时，代码比较难看
+* koa 1.0：随着新版Node.js开始支持ES6，Express的团队又基于ES6的generator重新编写了下一代web框架koa。和Express相比，koa 1.0使用`generator`(* yield)实现异步
+* koa2：基于ES7(async/await)开发了koa2，和koa 1相比，koa2完全使用Promise并配合async来实现异步
