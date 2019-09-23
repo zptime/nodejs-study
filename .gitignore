@@ -15,3 +15,6 @@ build
 
 hello-koa/node_modules
 hello-koa/package-lock.json
+
+mocha-test/node_modules
+mocha-test/package-lock.json

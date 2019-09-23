@@ -45,3 +45,26 @@
 * express：基于ES5的语法，要实现异步代码，只有一个方法：回调。如异步嵌套层数过多时，代码比较难看
 * koa 1.0：随着新版Node.js开始支持ES6，Express的团队又基于ES6的generator重新编写了下一代web框架koa。和Express相比，koa 1.0使用`generator`(* yield)实现异步
 * koa2：基于ES7(async/await)开发了koa2，和koa 1相比，koa2完全使用Promise并配合async来实现异步
+* koa MVC框架：Nunjucks(模板引擎), koa-router(路由), controller(控制器)
+
+## mysql
+
+* [下载地址](https://dev.mysql.com/downloads/mysql/)
+* [参考文档](https://www.jianshu.com/p/689f25071ba5)
+* 初始化配置：`mysqld --initialize --console` 获取初始化密码
+* 安装：`mysqld install`
+* 启动：`net start mysql`
+* 登录数据库：`mysql -u root -p`
+* 更改密码：`ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '新密码';`
+* 测试连接数据库：`show databases`
+* 停止服务：`net stop mysql`
+
+## mocha
+
+* 单元测试是用来对一个模块、一个函数或者一个类来进行正确性检验的测试工作。
+* mocha是JavaScript的一种单元测试框架，既可以在浏览器环境下运行，也可以在Node.js环境下运行。
+* 使用mocha，我们就只需要专注于编写单元测试本身，然后，让mocha去自动运行所有的测试，并给出测试结果。
+* mocha的特点主要有：
+  1. 既可以测试简单的JavaScript函数，又可以测试异步代码，因为异步是JavaScript的特性之一；
+  2. 可以自动运行所有测试，也可以只运行特定的测试；
+  3. 可以支持before、after、beforeEach和afterEach来编写初始化代码。
