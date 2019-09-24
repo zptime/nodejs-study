@@ -109,6 +109,35 @@
 
 * 路由：服务器在响应connection事件时并未检查请求的路径，因此，在客户端打开ws://localhost:3000/any/path可以写任意的路径。实际应用中还需要根据不同的路径实现不同的功能。
 
-* package.json为最新版本时，根本跑步起来，只能退回到课程实例版本。版本更新后，相关属性有了差异。
+* package.json为最新版本时，根本跑不起来，只能退回到课程实例版本。版本更新后，相关属性有了差异。
   * app.js     109行 ws.upgradeReq.url     Cannot read property 'url' of undefined
   * app.js     160行 this.wss.clients.map  TypeError: this.wss.clients.map is not a function
+
+## REST
+
+> REST（Representational State Transfer）：REST就是一种设计API的模式。最常用的数据格式是JSON。由于JSON能直接被JavaScript读取，所以，以JSON格式编写的REST风格的API具有简单、易读、易用的特点。
+
+* Web API：如果一个URL返回的不是HTML，而是机器能直接解析的数据，这个URL就可以看成是一个Web API。
+* 编写API的好处：由于API就是把Web App的功能全部封装了，所以，通过API操作数据，可以极大地把前端和后端的代码隔离，使得后端代码易于测试，前端代码编写更简单。
+* REST API规范：编写REST API，实际上就是编写处理HTTP请求的async函数
+  1. REST请求仍然是标准的HTTP请求，但是，除了GET请求外，POST、PUT等请求的body是JSON数据格式，请求的Content-Type为application/json；
+  2. EST响应返回的结果是JSON数据格式，因此，响应的Content-Type也是application/json。
+* curl：cURL是一个利用URL语法在命令行下工作的文件传输工具。它支持文件上传和下载，所以是综合传输工具，但按传统，习惯称cURL为下载工具。cURL还包含了用于程序开发的libcurl。
+  * [windows（64位）下使用curl命令](https://www.cnblogs.com/xing901022/p/4652624.html)
+    * 注意：其中方式三无效。
+    * 注意：在Windows中curl命令后面用双引号。
+    * curl -H 'Content-Type: application/json' -X POST --data '{"name":"XBox","price":3999}' http://localhost:3000/api/products  (错误：curl: (6) Could not resolve host: application  结果：插入一个空对象{}  原因：6-无法解析主机地址  解决：改为127.0.0.1或者ip地址，均无效；改为双引号报错。 )
+    * curl -H "Content-Type: application/json" -X POST -d "{'name':'XBox','price':3999}" http://localhost:3000/api/products  (报错：Bad Request)
+
+## MVVM
+
+* 前端发展历史
+  * 静态网页：预先编写好的存放在Web服务器上的html文件。浏览器请求某个URL时，Web服务器把对应的html文件扔给浏览器，就可以显示html文件的内容了。
+  * 动态HTML文件：服务器针对不同的用户，动态生成不同的html文件，显示不同的页面。
+    * CGI(Common Gateway Interface)：利用C、C++这些编程语言，直接向浏览器输出拼接后的字符串。
+    * ASP、JSP和PHP——分别由微软、SUN和开源社区开发。例如，在ASP中，一个asp文件就是一个HTML，但是，需要替换的变量用特殊的<%=var%>标记出来了，再配合循环、条件判断，创建动态HTML就比CGI要容易得多。
+  * 1995年年底，JavaScript被引入到浏览器，修改HTML页面的内容。
+    * 第一阶段，直接用JavaScript操作DOM节点，使用浏览器提供的原生API
+    * 第二阶段，由于原生API不好用，还要考虑浏览器兼容性，jQuery横空出世
+    * 第三阶段，MVC模式，需要服务器端配合，JavaScript可以在前端修改服务器渲染后的数据。
+    * MVVM(Model–view–viewmodel)：最早由微软提出，Model负责模型，View负责视图，ViewModel负责关联Model和View，把Model的数据同步到View显示出来，还负责把View的修改同步回Model。
