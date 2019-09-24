@@ -36,8 +36,8 @@ app.use(templating('views', {
     watch: !isProduction
 }));
 
-// add controller:
-app.use(controller('.'));
+// add controller:让它自动扫描controllers目录，找到所有js文件，导入，然后注册每个URL
+app.use(controller());
 
 app.listen(3000);
 console.log('app started at port 3000...');
