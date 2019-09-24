@@ -38,14 +38,14 @@
 * http: request对象封装了HTTP请求，response对象封装了HTTP响应。
 * crypto模块：提供通用的加密和哈希算法。Nodejs用C/C++实现这些算法后，通过cypto这个模块暴露为JavaScript接口，方便，运行速度也快。
 
-## koa
+## koa（实例：hell-koa）
 
 > Express是第一代最流行的web框架，koa是Express的下一代基于Node.js的web框架
 
 * express：基于ES5的语法，要实现异步代码，只有一个方法：回调。如异步嵌套层数过多时，代码比较难看
 * koa 1.0：随着新版Node.js开始支持ES6，Express的团队又基于ES6的generator重新编写了下一代web框架koa。和Express相比，koa 1.0使用`generator`(* yield)实现异步
 * koa2：基于ES7(async/await)开发了koa2，和koa 1相比，koa2完全使用Promise并配合async来实现异步
-* koa MVC框架：Nunjucks(模板引擎), koa-router(路由), controller(控制器)
+* koa MVC框架：`Nunjucks`(模板引擎), koa-router(路由), controller(控制器)
 
 ## mysql
 
@@ -59,7 +59,7 @@
 * 测试连接数据库：`show databases`
 * 停止服务：`net stop mysql`
 
-## mocha
+## mocha（实例：hello-mocha）
 
 * 单元测试是用来对一个模块、一个函数或者一个类来进行正确性检验的测试工作。
 * mocha是JavaScript的一种单元测试框架，既可以在浏览器环境下运行，也可以在Node.js环境下运行。
@@ -69,7 +69,7 @@
   2. 可以自动运行所有测试，也可以只运行特定的测试；
   3. 可以支持before、after、beforeEach和afterEach来编写初始化代码。
 
-## WebSocket
+## WebSocket（实例：hello-ws）
 
 > WebSocket是HTML5新增的协议，它的目的是在浏览器和服务器之间建立一个不受限的双向通信的通道(无限制的全双工通信)，任何一方都可以主动发消息给对方。
 
@@ -113,7 +113,7 @@
   * app.js     109行 ws.upgradeReq.url     Cannot read property 'url' of undefined
   * app.js     160行 this.wss.clients.map  TypeError: this.wss.clients.map is not a function
 
-## REST
+## REST（实例：hello-rest）
 
 > REST（Representational State Transfer）：REST就是一种设计API的模式。最常用的数据格式是JSON。由于JSON能直接被JavaScript读取，所以，以JSON格式编写的REST风格的API具有简单、易读、易用的特点。
 
@@ -129,7 +129,7 @@
     * curl -H 'Content-Type: application/json' -X POST --data '{"name":"XBox","price":3999}' http://localhost:3000/api/products  (错误：curl: (6) Could not resolve host: application  结果：插入一个空对象{}  原因：6-无法解析主机地址  解决：改为127.0.0.1或者ip地址，均无效；改为双引号报错。 )
     * curl -H "Content-Type: application/json" -X POST -d "{'name':'XBox','price':3999}" http://localhost:3000/api/products  (报错：Bad Request)
 
-## MVVM
+## MVVM（实例：mvvm-koa）
 
 * 前端发展历史
   * 静态网页：预先编写好的存放在Web服务器上的html文件。浏览器请求某个URL时，Web服务器把对应的html文件扔给浏览器，就可以显示html文件的内容了。
