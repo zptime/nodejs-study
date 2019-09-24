@@ -68,3 +68,47 @@
   1. 既可以测试简单的JavaScript函数，又可以测试异步代码，因为异步是JavaScript的特性之一；
   2. 可以自动运行所有测试，也可以只运行特定的测试；
   3. 可以支持before、after、beforeEach和afterEach来编写初始化代码。
+
+## WebSocket
+
+> WebSocket是HTML5新增的协议，它的目的是在浏览器和服务器之间建立一个不受限的双向通信的通道(无限制的全双工通信)，任何一方都可以主动发消息给对方。
+
+* 为什么传统的HTTP协议不能做到WebSocket实现的功能？
+  1. 这是因为HTTP协议是一个请求－响应协议，请求必须先由浏览器发给服务器，服务器才能响应这个请求，再把数据发送给浏览器。换句话说，浏览器不主动请求，服务器是没法主动发数据给浏览器的。
+  2. 轮询是指浏览器通过JavaScript启动一个定时器，然后以固定的间隔给服务器发请求，询问服务器有没有新消息。这个机制的缺点一是实时性不够，二是频繁的请求会给服务器带来极大的压力。
+  3. Comet本质上也是轮询，但是在没有消息的情况下，服务器先拖一段时间，等到有消息了再回复。这个机制暂时地解决了实时性问题，但是它带来了新的问题：以多线程模式运行的服务器会让大部分线程大部分时间都处于挂起状态，极大地浪费服务器资源。另外，一个HTTP连接在长时间没有数据传输的情况下，链路上的任何一个网关都可能关闭这个连接，而网关是我们不可控的，这就要求Comet连接必须定期发一些ping数据表示连接“正常工作”。
+
+* WebSocket协议：
+  * 首先，WebSocket连接必须由浏览器发起，因为请求协议是一个标准的HTTP请求，格式如下：
+    1. GET请求的地址不是类似/path/，而是以ws://开头的地址；
+    2. 请求头Upgrade: websocket和Connection: Upgrade表示这个连接将要被转换为WebSocket连接；
+    3. Sec-WebSocket-Key是用于标识这个连接，并非用于加密数据；
+    4. Sec-WebSocket-Version指定了WebSocket的协议版本。
+
+    ``` bash
+        GET ws://localhost:3000/ws/chat HTTP/1.1
+        Host: localhost
+        Upgrade: websocket
+        Connection: Upgrade
+        Origin: http://localhost:3000
+        Sec-WebSocket-Key: client-random-string
+        Sec-WebSocket-Version: 13
+    ```
+
+  * 随后，服务器如果接受该请求，就会返回如下响应：
+    1. 该响应代码101表示本次连接的HTTP协议即将被更改，更改后的协议就是Upgrade: websocket指定的WebSocket协议。
+
+  ``` bash
+    HTTP/1.1 101 Switching Protocols
+    Upgrade: websocket
+    Connection: Upgrade
+    Sec-WebSocket-Accept: server-random-string
+  ```
+
+* 同源策略：WebSocket协议本身不要求同源策略（Same-origin Policy），也就是某个地址为`http://a.com`的网页可以通过WebSocket连接到 `ws://b.com`。但是，浏览器会发送Origin的HTTP头给服务器，服务器可以根据Origin拒绝这个WebSocket请求。所以，是否要求同源要看服务器端如何检查。
+
+* 路由：服务器在响应connection事件时并未检查请求的路径，因此，在客户端打开ws://localhost:3000/any/path可以写任意的路径。实际应用中还需要根据不同的路径实现不同的功能。
+
+* package.json为最新版本时，根本跑步起来，只能退回到课程实例版本。版本更新后，相关属性有了差异。
+  * app.js     109行 ws.upgradeReq.url     Cannot read property 'url' of undefined
+  * app.js     160行 this.wss.clients.map  TypeError: this.wss.clients.map is not a function

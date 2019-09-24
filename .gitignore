@@ -18,3 +18,6 @@ hello-koa/package-lock.json
 
 mocha-test/node_modules
 mocha-test/package-lock.json
+
+hello-ws/node_modules
+hello-ws/package-lock.json
